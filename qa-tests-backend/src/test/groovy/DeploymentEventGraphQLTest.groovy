@@ -18,7 +18,7 @@ class DeploymentEventGraphQLTest extends BaseSpecification {
     private static final String CONTAINER_NAME = "eventnginx"
     private static final Deployment DEPLOYMENT = new Deployment()
             .setName(DEPLOYMENT_NAME)
-            .setImage("quay.io/rhacs-eng/qa-multi-arch:nginx-1.15.5")
+            .setImage("quay.io/rhacs-eng/qa-multi-arch:nginx-1-15-5")
             .addLabel("app", "test")
             .setCommand(["sh", "-c", "apt-get -y clean && sleep 600"])
     private static final POLICY = "Ubuntu Package Manager Execution"

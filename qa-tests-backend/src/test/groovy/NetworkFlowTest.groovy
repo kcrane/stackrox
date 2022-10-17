@@ -85,7 +85,7 @@ class NetworkFlowTest extends BaseSpecification {
                                       "socat "+SOCAT_DEBUG+" TCP-LISTEN:8080,fork STDOUT)" as String,]),
             new Deployment()
                     .setName(NGINXCONNECTIONTARGET)
-                    .setImage("quay.io/rhacs-eng/qa:nginx")
+                    .setImage("quay.io/rhacs-eng/qa-multi-arch:nginx-1.21.1")
                     .addPort(80)
                     .addLabel("app", NGINXCONNECTIONTARGET)
                     .setExposeAsService(true)
@@ -102,7 +102,7 @@ class NetworkFlowTest extends BaseSpecification {
         return [
             new Deployment()
                     .setName(NOCONNECTIONSOURCE)
-                    .setImage("quay.io/rhacs-eng/qa:nginx")
+                    .setImage("quay.io/rhacs-eng/qa-multi-arch:nginx-1.21.1")
                     .addLabel("app", NOCONNECTIONSOURCE),
             new Deployment()
                     .setName(SHORTCONSISTENTSOURCE)
@@ -114,7 +114,7 @@ class NetworkFlowTest extends BaseSpecification {
                                       "done" as String,]),
             new Deployment()
                     .setName(SINGLECONNECTIONSOURCE)
-                    .setImage("quay.io/rhacs-eng/qa:nginx-1-15-4-alpine")
+                    .setImage("quay.io/rhacs-eng/qa-multi-arch:nginx-1-15-4-alpine")
                     .addLabel("app", SINGLECONNECTIONSOURCE)
                     .setCommand(["/bin/sh", "-c",])
                     .setArgs(["wget -S -T 2 http://${NGINXCONNECTIONTARGET} && " +
@@ -150,7 +150,7 @@ class NetworkFlowTest extends BaseSpecification {
                                       "done" as String,]),
             new Deployment()
                     .setName(EXTERNALDESTINATION)
-                    .setImage("quay.io/rhacs-eng/qa:nginx-1-15-4-alpine")
+                    .setImage("quay.io/rhacs-eng/qa-multi-arch:nginx-1-15-4-alpine")
                     .addLabel("app", EXTERNALDESTINATION)
                     .setCommand(["/bin/sh", "-c",])
                     .setArgs(["while sleep ${NetworkGraphUtil.NETWORK_FLOW_UPDATE_CADENCE_IN_SECONDS}; " +
@@ -514,7 +514,7 @@ class NetworkFlowTest extends BaseSpecification {
         "create a new deployment that talks to A via the LB IP"
         def newDeployment = new Deployment()
                 .setName("talk-to-lb-ip")
-                .setImage("quay.io/rhacs-eng/qa:nginx-1-15-4-alpine")
+                .setImage("quay.io/rhacs-eng/qa-multi-arch:nginx-1-15-4-alpine")
                 .addLabel("app", "talk-to-lb-ip")
                 .setCommand(["/bin/sh", "-c",])
                 .setArgs(["while sleep 5; do wget -S -T 2 http://"+deploymentIP+"; done"])
